@@ -7,6 +7,6 @@ public class Settings extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game); // We'll create this layout next
+        setContentView(R.layout.activity_game); // Create this layout later!!
     }
 }

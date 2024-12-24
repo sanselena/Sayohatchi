@@ -23,8 +23,7 @@ public class Scene1 extends AppCompatActivity {
     private TextView dialogueText;
     private RelativeLayout dialogueOptionsLayout;
     private Button option1, option2;
-    private EditText nameInput; // Moved here for clarity
-    private String currentText = "";
+    private EditText nameInput;
     private String playerName = "Player"; // Default name
     private String[] dialogues = {
 
@@ -94,78 +93,31 @@ public class Scene1 extends AppCompatActivity {
     private Runnable textAnimator;
     private ImageView characterImageView, characterCutout, ahriImageView, ahriCutout;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game);
-
-        // Find dialogue options
-        dialogueOptionsLayout = findViewById(R.id.dialogueOptionsLayout);
-        option1 = findViewById(R.id.option1);
-        option2 = findViewById(R.id.option2);
-
-        // Hide by default
-        dialogueOptionsLayout.setVisibility(View.GONE);
-
-        // Initialize dialogue system as usual
-        dialogueText = findViewById(R.id.dialogueText);
-
-        // Initialize views
-        dialogueText = findViewById(R.id.dialogueText);
-        nameInput = findViewById(R.id.nameInput);
-
-        //cass and ahri sprites
-        characterImageView = findViewById(R.id.cass_sprite);
-        characterCutout = findViewById(R.id.characterCutout);
-        ahriImageView = findViewById(R.id.ahri_sprite);
-        ahriCutout = findViewById(R.id.ahri_cutout);
-
-        // Set default expressions
-
-        updateCharacterExpression(characterImageView, R.drawable.cass_neutral);
-        characterImageView.setVisibility(View.GONE);
-        characterCutout.setVisibility(View.GONE);
-        ahriImageView.setVisibility(View.GONE);
-        ahriCutout.setVisibility(View.GONE);
-
-        // Load saved player name
-        SharedPreferences preferences = getSharedPreferences("GameData", MODE_PRIVATE);
-        playerName = preferences.getString("playerName", "Player");
-
-        // Start text animation
-        startTextAnimation();
-    }
-
-    private void showDialogueOptions(String option1Text, String option2Text, Runnable option1Action, Runnable option2Action) {
-        // Set button texts
-        option1.setText(option1Text);
-        option2.setText(option2Text);
-
-        // Show the layout
-        dialogueOptionsLayout.setVisibility(View.VISIBLE);
-
-        // Handle option clicks
-        option1.setOnClickListener(v -> {
-            dialogueOptionsLayout.setVisibility(View.GONE); // Hide options
-            option1Action.run(); // Perform the action for option 1
-            Log.d("DialogueOption","Option 1 is selected");
-        });
-
-        option2.setOnClickListener(v -> {
-            dialogueOptionsLayout.setVisibility(View.GONE); // Hide options
-            option2Action.run(); // Perform the action for option 2
-            Log.d("DialogueOption","Option 2 is selected");
-        });
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_SPACE || keyCode == KeyEvent.KEYCODE_ENTER) {
-            if (nameInput.getVisibility() == View.VISIBLE) return true; // Ignore input during name entry
-            showNextDialogue();
-            return true;
-        }
-        return super.onKeyDown(keyCode, event);
+    private void startTextAnimation() {
+        textAnimator = new Runnable() {
+            @Override
+            public void run() {
+                String currentDialogue = dialogues[dialogueIndex];
+                if (charIndex < currentDialogue.length()) {
+                    // Check for italics using [i] and [/i] custom tags
+                    if (currentDialogue.startsWith("[i]", charIndex)) {
+                        dialogueText.append(Html.fromHtml("<i>"));
+                        charIndex += 3; // Skip "[i]"
+                    } else if (currentDialogue.startsWith("[/i]", charIndex)) {
+                        dialogueText.append(Html.fromHtml("</i>"));
+                        charIndex += 4; // Skip "[/i]"
+                    } else {
+                        // Add next character
+                        dialogueText.append(String.valueOf(currentDialogue.charAt(charIndex)));
+                        charIndex++;
+                    }
+                    handler.postDelayed(this, 50); // Delay for the next character
+                } else {
+                    handler.removeCallbacks(this);
+                }
+            }
+        };
+        handler.post(textAnimator);
     }
 
     private void showNextDialogue() {
@@ -297,31 +249,78 @@ public class Scene1 extends AppCompatActivity {
         }
     }
 
-    private void startTextAnimation() {
-        textAnimator = new Runnable() {
-            @Override
-            public void run() {
-                String currentDialogue = dialogues[dialogueIndex];
-                if (charIndex < currentDialogue.length()) {
-                    // Check for italics using [i] and [/i] custom tags
-                    if (currentDialogue.startsWith("[i]", charIndex)) {
-                        dialogueText.append(Html.fromHtml("<i>"));
-                        charIndex += 3; // Skip "[i]"
-                    } else if (currentDialogue.startsWith("[/i]", charIndex)) {
-                        dialogueText.append(Html.fromHtml("</i>"));
-                        charIndex += 4; // Skip "[/i]"
-                    } else {
-                        // Add next character
-                        dialogueText.append(String.valueOf(currentDialogue.charAt(charIndex)));
-                        charIndex++;
-                    }
-                    handler.postDelayed(this, 50); // Delay for the next character
-                } else {
-                    handler.removeCallbacks(this);
-                }
-            }
-        };
-        handler.post(textAnimator);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_game);
+
+        // Find dialogue options
+        dialogueOptionsLayout = findViewById(R.id.dialogueOptionsLayout);
+        option1 = findViewById(R.id.option1);
+        option2 = findViewById(R.id.option2);
+
+        // Hide by default
+        dialogueOptionsLayout.setVisibility(View.GONE);
+
+        // Initialize dialogue system as usual
+        dialogueText = findViewById(R.id.dialogueText);
+
+        // Initialize views
+        dialogueText = findViewById(R.id.dialogueText);
+        nameInput = findViewById(R.id.nameInput);
+
+        //cass and ahri sprites
+        characterImageView = findViewById(R.id.cass_sprite);
+        characterCutout = findViewById(R.id.characterCutout);
+        ahriImageView = findViewById(R.id.ahri_sprite);
+        ahriCutout = findViewById(R.id.ahri_cutout);
+
+        // Set default expressions
+
+        updateCharacterExpression(characterImageView, R.drawable.cass_neutral);
+        characterImageView.setVisibility(View.GONE);
+        characterCutout.setVisibility(View.GONE);
+        ahriImageView.setVisibility(View.GONE);
+        ahriCutout.setVisibility(View.GONE);
+
+        // Load saved player name
+        SharedPreferences preferences = getSharedPreferences("GameData", MODE_PRIVATE);
+        playerName = preferences.getString("playerName", "Player");
+
+        // Start text animation
+        startTextAnimation();
+    }
+
+    private void showDialogueOptions(String option1Text, String option2Text, Runnable option1Action, Runnable option2Action) {
+        // Set button texts
+        option1.setText(option1Text);
+        option2.setText(option2Text);
+
+        // Show the layout
+        dialogueOptionsLayout.setVisibility(View.VISIBLE);
+
+        // Handle option clicks
+        option1.setOnClickListener(v -> {
+            dialogueOptionsLayout.setVisibility(View.GONE); // Hide options
+            option1Action.run(); // Perform the action for option 1
+            Log.d("DialogueOption","Option 1 is selected");
+        });
+
+        option2.setOnClickListener(v -> {
+            dialogueOptionsLayout.setVisibility(View.GONE); // Hide options
+            option2Action.run(); // Perform the action for option 2
+            Log.d("DialogueOption","Option 2 is selected");
+        });
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_SPACE || keyCode == KeyEvent.KEYCODE_ENTER) {
+            if (nameInput.getVisibility() == View.VISIBLE) return true; // Ignore input during name entry
+            showNextDialogue();
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     private void updateCharacterExpression(ImageView characterSprite, int drawableResId) {

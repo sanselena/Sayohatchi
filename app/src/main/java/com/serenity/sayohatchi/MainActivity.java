@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);  // This sets the layout from your XML
+        setContentView(R.layout.activity_main);  // This sets the layout from XML
 
         // Find the buttons by their IDs
         Button startButton = findViewById(R.id.start_button);
