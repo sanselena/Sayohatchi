@@ -40,7 +40,7 @@
         android:alpha="0.8"
         android:src="@drawable/textbox" />
 
-    <!-- Character Cutouts -->
+    <!-- Character Cutouts-->
 
     <ImageView
         android:id="@+id/characterCutout"
