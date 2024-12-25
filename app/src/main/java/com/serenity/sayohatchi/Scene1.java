@@ -13,8 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -57,7 +57,7 @@ public class Scene1 extends AppCompatActivity {
 
             //first choice, option 1 : "Go with her" storyline
 
-            //"[i]What a nice lady... taking care of those in need.[/i]", //17
+            "[i]What a nice lady... taking care of those in need.[/i]", //17
             "Hold it right there.", //ahri_wolf appears!
             "!?", //cass_shocked
             "That \"cute little\" human isn't going anywhere with you, Cass.",
@@ -257,30 +257,22 @@ public class Scene1 extends AppCompatActivity {
     private void showNextDialogue() {
         long startTime = System.currentTimeMillis();
         Log.d("showNextDialogue", "Current dialogueIndex: " + dialogueIndex);
-
-        // Increment the dialogueIndex at the start
-        dialogueIndex++;
-
-        // Check if the end of the story for option 1 is reached
-        if (dialogueIndex == 34) {
+        if (dialogueIndex==34){
             Toast.makeText(this, "End of story for now!", Toast.LENGTH_SHORT).show();
-            Log.d("showNextDialogue", "dialogueIndex 34: End of story");
-            return; // Stop the app
+            Log.d("showNextDialogue", "dialogueIndex 34: End of story, scenario 1");
+            return;
         }
-
-        // Check if the end of the story for option 2 is reached
-        if (dialogueIndex == 43) {
+        if (dialogueIndex==43){
             Toast.makeText(this, "End of story for now!", Toast.LENGTH_SHORT).show();
-            Log.d("showNextDialogue", "dialogueIndex 43: End of story");
-            return; // Stop the app
+            Log.d("showNextDialogue", "dialogueIndex 43: End of story, scenario 2");
+            return;
         }
-
         if (dialogueIndex < dialogues.length) {
             charIndex = 0;
             dialogueText.setText("");
 
             switch (dialogueIndex) {
-                case 6:
+                case 5:
                     characterImageView.setVisibility(View.VISIBLE);
                     characterCutout.setVisibility(View.VISIBLE);
                     Log.d("showNextDialogue", "dialogueIndex 5: characterImageView and characterCutout set to VISIBLE");
@@ -310,30 +302,31 @@ public class Scene1 extends AppCompatActivity {
                     Log.d("showNextDialogue", "dialogueIndex 11: cass_affectionate and cass_affectionate_cutout set");
                     break;
 
-                case 14:
+                case 13:
                     if (nameInput.getVisibility() != View.VISIBLE) {
                         showNameInput();
                         Log.d("showNextDialogue", "dialogueIndex 14: Name input shown");
                         return; // Wait for name input before proceeding
                     }
                     break;
-
-                case 16:
+                case 15:
                     updateCharacterExpression(characterImageView, R.drawable.cass_scary_smile);
                     updateCharacterExpression(characterCutout, R.drawable.cass_scarysmile_cutout);
-                    dialogueText.setText(  "Let me take you to my humble abode. I will treat you with great care.");
-                    Log.d("showNextDialogue", "dialogueIndex 16: cass_scary_smile and cass_scarysmile_cutout set");
+                    Log.d("showNextDialogue", "dialogueIndex 11: cass_scarysmile and cass_scarysmile_cutout set");
+                    break;
+                case 16:
+                    Log.d("showNextDialogue", "dialogueIndex 16: options are presented");
                     showDialogueOptions(
                             "Go with her",
                             "Refuse",
                             () -> {
-                                dialogueIndex = 16; // Set to correct index for option 1 storyline
-                                Log.d("showNextDialogue", "Option 1 chosen, dialogueIndex set to 16");
+                                dialogueIndex = 17; // Correctly set to the next index for option 1 storyline
+                                Log.d("showNextDialogue", "Option 1 chosen, dialogueIndex set to 17");
                                 showNextDialogue(); // Continue dialogue flow
                             },
                             () -> {
-                                dialogueIndex = 34; // Set to correct index for option 2 storyline
-                                Log.d("showNextDialogue", "Option 2 chosen, dialogueIndex set to 34");
+                                dialogueIndex = 35; // Correctly set to the next index for option 2 storyline
+                                Log.d("showNextDialogue", "Option 2 chosen, dialogueIndex set to 35");
                                 showNextDialogue(); // Continue dialogue flow
                             }
                     );
@@ -401,16 +394,17 @@ public class Scene1 extends AppCompatActivity {
                     break;
 
                 case 26:
-                    characterImageView.setVisibility(View.GONE); // cass leaves
-                    characterCutout.setVisibility(View.GONE);
+
                     Log.d("showNextDialogue", "dialogueIndex 26: cass leaves, characterImageView and characterCutout hidden");
                     break;
 
                 case 27:
+                    characterImageView.setVisibility(View.GONE); // cass leaves
+                    characterCutout.setVisibility(View.GONE);
                     ahriCutout.setVisibility(View.VISIBLE);
-                    updateCharacterExpression(ahriImageView, R.drawable.ahri_neutral);
-                    updateCharacterExpression(ahriCutout, R.drawable.ahri_neutral_cutout);
-                    Log.d("showNextDialogue", "dialogueIndex 27: ahri_neutral and ahri_cutout shown");
+                    updateCharacterExpression(ahriImageView, R.drawable.ahri_annoyed);
+                    updateCharacterExpression(ahriCutout, R.drawable.ahri_annoyed_cutout);
+                    Log.d("showNextDialogue", "dialogueIndex 27: ahri_annoyed and ahri_annoyed_cutout shown");
                     break;
 
                 case 28:
@@ -439,28 +433,28 @@ public class Scene1 extends AppCompatActivity {
                     Log.d("showNextDialogue", "dialogueIndex 36: cass_affectionate and cass_affectionate_cutout set");
                     break;
 
-                case 37:
+                case 38:
                     ahriImageView.setVisibility(View.VISIBLE);  // ahri appears!!
                     ahriCutout.setVisibility(View.VISIBLE);
                     characterCutout.setVisibility(View.GONE);
                     updateCharacterExpression(ahriImageView, R.drawable.ahri_wolf);
                     updateCharacterExpression(ahriCutout, R.drawable.ahri_wolf);
-                    Log.d("showNextDialogue", "dialogueIndex 38: ahri_wolf and ahri_wolf_cutout set");
+                    Log.d("showNextDialogue", "dialogueIndex 37: ahri_wolf and ahri_wolf_cutout set");
                     break;
 
-                case 38:
+                case 39:
                     characterCutout.setVisibility(View.VISIBLE);
                     ahriCutout.setVisibility(View.GONE);
                     updateCharacterExpression(characterImageView, R.drawable.cass_scary_smile);
                     updateCharacterExpression(characterCutout, R.drawable.cass_scarysmile_cutout);
-                    Log.d("showNextDialogue", "dialogueIndex 39: cass_scary_smile and cass_scarysmile_cutout set");
+                    Log.d("showNextDialogue", "dialogueIndex 38: cass_scary_smile and cass_scarysmile_cutout set");
                     break;
 
-                case 39:
+                case 40:
                     characterImageView.setVisibility(View.GONE); // cass left??!!?!?!
                     characterCutout.setVisibility(View.GONE);
                     ahriCutout.setVisibility(View.VISIBLE);
-                    Log.d("showNextDialogue", "dialogueIndex 40: cass leaves, characterImageView and characterCutout hidden");
+                    Log.d("showNextDialogue", "dialogueIndex 39: cass leaves, characterImageView and characterCutout hidden");
                     break;
 
                 default:
@@ -470,6 +464,7 @@ public class Scene1 extends AppCompatActivity {
 
             // Animate the current dialogue line
             startTextAnimation();
+            dialogueIndex++; // Move to the next dialogue for the next trigger
         }
         long endTime = System.currentTimeMillis();
         Log.d("showNextDialogue", "Processing dialogueIndex " + dialogueIndex + " took " + (endTime - startTime) + " ms");
@@ -494,10 +489,15 @@ public class Scene1 extends AppCompatActivity {
                     imm.hideSoftInputFromWindow(nameInput.getWindowToken(), 0);
                 }
 
-                // Insert "Nice to meet you" and continue
-                dialogueText.setText("Nice to meet you, " + playerName + "!");
-                //dialogueIndex++; // Advance to the next dialogue
-                showNextDialogue(); // Resume normal dialogue flow
+                // Insert "Nice to meet you" and continue with animation
+                dialogueText.setText(""); // Clear previous text
+                dialogues[dialogueIndex] = "Nice to meet you, " + playerName + "!";
+                startTextAnimation();
+
+                handler.postDelayed(() -> {
+                    dialogueIndex++; // Advance to the next dialogue
+                    showNextDialogue(); // Resume normal dialogue flow
+                }, 3000); // 3-second delay to allow reading time
             }
             return true;
         });
@@ -559,13 +559,13 @@ public class Scene1 extends AppCompatActivity {
         option1.setOnClickListener(v -> {
             dialogueOptionsLayout.setVisibility(View.GONE); // Hide options
             option1Action.run(); // Perform the action for option 1
-            Log.d("DialogueOption","Option 1 is selected");
+            Log.d("DialogueOption", "Option 1 is selected");
         });
 
         option2.setOnClickListener(v -> {
             dialogueOptionsLayout.setVisibility(View.GONE); // Hide options
             option2Action.run(); // Perform the action for option 2
-            Log.d("DialogueOption","Option 2 is selected");
+            Log.d("DialogueOption", "Option 2 is selected");
         });
     }
 

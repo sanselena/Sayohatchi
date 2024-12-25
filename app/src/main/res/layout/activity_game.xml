@@ -17,6 +17,20 @@
         android:layout_marginTop="20dp"
         android:layout_marginRight="350dp" />
 
+    <!-- Character Sprites -->
+
+    <ImageView
+        android:id="@+id/ahri_sprite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:src="@drawable/ahri_neutral"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="480dp"
+        />
+
+    <!-- TextBox -->
+
     <ImageView
         android:id="@+id/textbox"
         android:layout_width="match_parent"
@@ -25,6 +39,8 @@
         android:layout_marginBottom="-224dp"
         android:alpha="0.8"
         android:src="@drawable/textbox" />
+
+    <!-- Character Cutouts -->
 
     <ImageView
         android:id="@+id/characterCutout"
@@ -35,6 +51,15 @@
         android:layout_marginTop="200dp"
         android:src="@drawable/cass_neutral_cutout" />
 
+    <ImageView
+        android:id="@+id/ahri_cutout"
+        android:layout_width="237dp"
+        android:layout_height="244dp"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="200dp"
+        android:src="@drawable/ahri_neutral_cutout"
+        />
 
 
     <EditText
@@ -44,28 +69,6 @@
         android:hint="Enter your name"
         android:layout_gravity="center"
         android:visibility="gone" />
-
-    <!-- Ahri sprite -->
-    <ImageView
-        android:id="@+id/ahri_sprite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:src="@drawable/ahri_neutral"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="480dp"
-      />
-
-
-    <ImageView
-        android:id="@+id/ahri_cutout"
-        android:layout_width="237dp"
-        android:layout_height="244dp"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="200dp"
-        android:src="@drawable/ahri_neutral_cutout"
-         />
 
     <TextView
         android:id="@+id/dialogueText"
@@ -78,7 +81,9 @@
         android:textColor="#000000"
         android:textStyle="bold"
         android:gravity="center" />
+
     <!-- Dialogue Options Layout -->
+
     <RelativeLayout
         android:id="@+id/dialogueOptionsLayout"
         android:layout_width="match_parent"
