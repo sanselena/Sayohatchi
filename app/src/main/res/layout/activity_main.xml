@@ -10,10 +10,10 @@
 
     <ImageView
         android:id="@+id/logo"
-        android:layout_width="494dp"
-        android:layout_height="178dp"
+        android:layout_width="399dp"
+        android:layout_height="110dp"
         android:layout_marginStart="0dp"
-        android:layout_marginTop="-200dp"
+        android:layout_marginTop="-180dp"
         android:src="@drawable/logo" />
 
     <!-- Start_Game Button -->

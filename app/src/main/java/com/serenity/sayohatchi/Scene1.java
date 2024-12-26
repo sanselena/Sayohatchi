@@ -428,12 +428,12 @@ public class Scene1 extends AppCompatActivity {
                 // End of option1 storyline, time for the cases of option2 scenario
 
                 case 36:
-                    updateCharacterExpression(characterImageView, R.drawable.cass_affectionate);
-                    updateCharacterExpression(characterCutout, R.drawable.cass_affectionate_cutout);
-                    Log.d("showNextDialogue", "dialogueIndex 36: cass_affectionate and cass_affectionate_cutout set");
+                    updateCharacterExpression(characterImageView, R.drawable.cass_angry);
+                    updateCharacterExpression(characterCutout, R.drawable.cass_angry_cutout);
+                    Log.d("showNextDialogue", "dialogueIndex 36: cass_angry and cass_angry_cutout set");
                     break;
 
-                case 38:
+                case 37:
                     ahriImageView.setVisibility(View.VISIBLE);  // ahri appears!!
                     ahriCutout.setVisibility(View.VISIBLE);
                     characterCutout.setVisibility(View.GONE);
@@ -442,7 +442,7 @@ public class Scene1 extends AppCompatActivity {
                     Log.d("showNextDialogue", "dialogueIndex 37: ahri_wolf and ahri_wolf_cutout set");
                     break;
 
-                case 39:
+                case 38:
                     characterCutout.setVisibility(View.VISIBLE);
                     ahriCutout.setVisibility(View.GONE);
                     updateCharacterExpression(characterImageView, R.drawable.cass_scary_smile);
@@ -450,7 +450,7 @@ public class Scene1 extends AppCompatActivity {
                     Log.d("showNextDialogue", "dialogueIndex 38: cass_scary_smile and cass_scarysmile_cutout set");
                     break;
 
-                case 40:
+                case 39:
                     characterImageView.setVisibility(View.GONE); // cass left??!!?!?!
                     characterCutout.setVisibility(View.GONE);
                     ahriCutout.setVisibility(View.VISIBLE);

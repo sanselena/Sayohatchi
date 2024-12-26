@@ -15,7 +15,8 @@
         android:layout_gravity="center"
         android:src="@drawable/cass_neutral"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="350dp" />
+        android:layout_marginRight="350dp"
+        />
 
     <!-- Character Sprites -->
 
