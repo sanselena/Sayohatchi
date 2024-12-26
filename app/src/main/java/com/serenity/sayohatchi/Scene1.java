@@ -15,12 +15,14 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.media.MediaPlayer;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class Scene1 extends AppCompatActivity {
     private TextView dialogueText;
+    private MediaPlayer mediaPlayer;
     private long lastDialogueSkipTime = 0;
     private int dialogueIndex = 0;
     private int charIndex = 0;
@@ -94,7 +96,6 @@ public class Scene1 extends AppCompatActivity {
             //start your journey option only, ending 2 of scene1
 
     };
-
 
     private void startTextAnimation() {
         textAnimator = new Runnable() {
@@ -252,17 +253,17 @@ public class Scene1 extends AppCompatActivity {
         }
         long endTime = System.currentTimeMillis();
         Log.d("showNextDialogue", "Processing dialogueIndex " + dialogueIndex + " took " + (endTime - startTime) + " ms");
-    } */
+    } */  //This is an old (not working!) version of the showNextDialogue method. it's here to keep track of dialogueIndex's according to the storyline.
 
     private void showNextDialogue() {
         long startTime = System.currentTimeMillis();
         Log.d("showNextDialogue", "Current dialogueIndex: " + dialogueIndex);
-        if (dialogueIndex==34){
+        if (dialogueIndex == 34) {
             Toast.makeText(this, "End of story for now!", Toast.LENGTH_SHORT).show();
             Log.d("showNextDialogue", "dialogueIndex 34: End of story, scenario 1");
             return;
         }
-        if (dialogueIndex==43){
+        if (dialogueIndex == 43) {
             Toast.makeText(this, "End of story for now!", Toast.LENGTH_SHORT).show();
             Log.d("showNextDialogue", "dialogueIndex 43: End of story, scenario 2");
             return;
@@ -428,12 +429,12 @@ public class Scene1 extends AppCompatActivity {
                 // End of option1 storyline, time for the cases of option2 scenario
 
                 case 36:
-                    updateCharacterExpression(characterImageView, R.drawable.cass_affectionate);
-                    updateCharacterExpression(characterCutout, R.drawable.cass_affectionate_cutout);
-                    Log.d("showNextDialogue", "dialogueIndex 36: cass_affectionate and cass_affectionate_cutout set");
+                    updateCharacterExpression(characterImageView, R.drawable.cass_angry);
+                    updateCharacterExpression(characterCutout, R.drawable.cass_angry_cutout);
+                    Log.d("showNextDialogue", "dialogueIndex 36: cass_angry and cass_angry_cutout set");
                     break;
 
-                case 38:
+                case 37:
                     ahriImageView.setVisibility(View.VISIBLE);  // ahri appears!!
                     ahriCutout.setVisibility(View.VISIBLE);
                     characterCutout.setVisibility(View.GONE);
@@ -442,7 +443,7 @@ public class Scene1 extends AppCompatActivity {
                     Log.d("showNextDialogue", "dialogueIndex 37: ahri_wolf and ahri_wolf_cutout set");
                     break;
 
-                case 39:
+                case 38:
                     characterCutout.setVisibility(View.VISIBLE);
                     ahriCutout.setVisibility(View.GONE);
                     updateCharacterExpression(characterImageView, R.drawable.cass_scary_smile);
@@ -450,7 +451,7 @@ public class Scene1 extends AppCompatActivity {
                     Log.d("showNextDialogue", "dialogueIndex 38: cass_scary_smile and cass_scarysmile_cutout set");
                     break;
 
-                case 40:
+                case 39:
                     characterImageView.setVisibility(View.GONE); // cass left??!!?!?!
                     characterCutout.setVisibility(View.GONE);
                     ahriCutout.setVisibility(View.VISIBLE);
@@ -508,6 +509,11 @@ public class Scene1 extends AppCompatActivity {
         long startTime = System.currentTimeMillis();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+
+        // Initialize the MediaPlayer with the audio resource
+        mediaPlayer = MediaPlayer.create(this, R.raw.whispers_of_the_eldertree_loop);
+        mediaPlayer.setLooping(true);  // Set it to loop
+        mediaPlayer.start();  // Start the background music
 
         // Find dialogue options
         dialogueOptionsLayout = findViewById(R.id.dialogueOptionsLayout);
@@ -573,7 +579,8 @@ public class Scene1 extends AppCompatActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         long currentTime = System.currentTimeMillis();
         if (keyCode == KeyEvent.KEYCODE_SPACE || keyCode == KeyEvent.KEYCODE_ENTER) {
-            if (nameInput.getVisibility() == View.VISIBLE) return true; // Ignore input during name entry
+            if (nameInput.getVisibility() == View.VISIBLE)
+                return true; // Ignore input during name entry
             if (currentTime - lastDialogueSkipTime > DEBOUNCE_DELAY) {
                 lastDialogueSkipTime = currentTime;
                 showNextDialogue();
@@ -587,11 +594,36 @@ public class Scene1 extends AppCompatActivity {
         characterSprite.setImageResource(drawableResId);
     }
 
-
-
     @Override
     public void onBackPressed() {
         super.onBackPressed();
         handler.removeCallbacks(textAnimator);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mediaPlayer != null && mediaPlayer.isPlaying()) {
+            mediaPlayer.pause();  // Pause the music when the activity is paused
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mediaPlayer != null && !mediaPlayer.isPlaying()) {
+            mediaPlayer.start();  // Resume the music when the activity is resumed
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mediaPlayer != null) {
+            mediaPlayer.stop();  // Stop the music when the activity is destroyed
+            mediaPlayer.release();  // Release the MediaPlayer resources
+            mediaPlayer = null;
+        }
+    }
 }
+
