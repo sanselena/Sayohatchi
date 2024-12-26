@@ -63,7 +63,7 @@ public class Scene1 extends AppCompatActivity {
             "Hold it right there.", //ahri_wolf appears!
             "!?", //cass_shocked
             "That \"cute little\" human isn't going anywhere with you, Cass.",
-            "And why might that be, Ahri? They need to be taken care of, and i'm perfectly capable of doing so!",
+            "And why might that be, Asena? They need to be taken care of, and i'm perfectly capable of doing so!",
             "I'm too sleepy for this... hand them over. Now.",
             "Moreover, they want to follow me. Just let me have this one will ya?",
             "They're dumb anyways, nobody will notice their absence.", //cass_scarysmile
@@ -71,7 +71,7 @@ public class Scene1 extends AppCompatActivity {
             "You asked for this.", //ahri_annoyed
             "Ugh...", //cass_defeated
             "Ughhh... Why did you have to be decieved so easily? I had to transform too...", //cass leaves, ahri is annoyed still
-            "Anyways, im Ahri, the guide. Unlike some others here, i'll follow you whether you accept following me, or choose forging your own path.", //ahri_neutral
+            "Anyways, im Asena, the guide. Unlike some others here, i'll follow you whether you accept following me, or choose forging your own path.", //ahri_neutral
             "I will watch over you, whether you're enjoying or suffering. My job is to keep you from losing your path, that's-", //ahri_smile
             "Travel where?! What is this place? Guide for what? To fix the loose wiring in my head?!",//ahri_neutral
             "...calm down, human. I understand you've had your fair share of encounters with some too friendly entities, but... ",
@@ -88,7 +88,7 @@ public class Scene1 extends AppCompatActivity {
             "Ugh, forget it. We don't have much time before that stupid wolf appears-",
             "...", //ahri_wolf appears
             "You choose to leave me this time, human. But we'll meet again.", //cass_scarysmile
-            "Welcome, human. I'm Ahri, the guide. Unlike some others here, i'll follow you whether you accept following me or choose forging your own path.",
+            "Welcome, human. I'm Asena, the guide. Unlike some others here, i'll follow you whether you accept following me or choose forging your own path.",
             "You need not worry, for i am not your enemy. But there will be bad omens on your journey.",
             "I will always watch over you, whether you're enjoying or suffering. My job is to keep you from losing your path, that's all.",
             "The choice of following me or forging your own path is yours, human. It has always been." //43
@@ -96,7 +96,6 @@ public class Scene1 extends AppCompatActivity {
             //start your journey option only, ending 2 of scene1
 
     };
-
     private void startTextAnimation() {
         textAnimator = new Runnable() {
             @Override
